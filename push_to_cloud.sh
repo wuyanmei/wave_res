@@ -43,9 +43,9 @@ fi
 if [[ "$1" == *"gitee"* ]]
 then
 	#echo "------------------ Pull from gitee ------------------ "
-	#git reset --hard gitee2/master
-	#git pull gitee2 master
+	#git reset --hard gitee/master
+	#git pull gitee master
 	echo "------------------- push to gitee ------------------ "
-	git push -f gitee2
+	git push -f gitee
 fi
 
