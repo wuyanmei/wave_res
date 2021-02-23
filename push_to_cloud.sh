@@ -4,9 +4,9 @@
 #echo "------------------ fetch all ------------------ "
 #git fetch --all
 
-echo "------------------ Pull from github ------------------ "
+echo "------------------ fetch and reset to github ------------------ "
+git fetch github
 git reset --hard github/master
-git pull github master
 
 cp ../WavePatterns/out/match_stocks.json ./
 #cp ../WavePatterns/out/summary.ebk ./
