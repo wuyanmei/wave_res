@@ -20,3 +20,4 @@ git commit -am "%time_tag%"
 git push %1%
 
 :end
+cd ..\WavePatterns
