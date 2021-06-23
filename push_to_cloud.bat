@@ -15,6 +15,7 @@ git pull %1%
 
 copy ..\WavePatterns\out\match_stocks.json .\
 copy ..\WavePatterns\out\summary.ebk .\
+copy ..\WavePatterns\resources\tdx_stocks.json .\
 set time_tag=1. update wave_patten results at  %date:~0,10% %time:~0,12%
 git commit -am "%time_tag%"
 git push %1%
