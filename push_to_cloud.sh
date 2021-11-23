@@ -1,25 +1,4 @@
-#!/bin/bash
-#git fetch tcloud
-#git merge -s recursive -X theirs tcloud/master
-#echo "------------------ fetch all ------------------ "
-#git fetch --all
-
-echo "------------------ fetch and reset to github ------------------ "
-git fetch github
-git reset --hard github/master
-
-cp ../WavePatterns/out/match_stocks.json ./
-#cp ../WavePatterns/out/summary.ebk ./
-cur_date="`date +%Y-%m-%d`"
-git add match_stocks.json
-
-profile_result="../WavePatterns/out/profile_indexes.json"
-if [ -f "$profile_result" ]; then
-    cp  "$profile_result" ./
-    git add profile_indexes.json
-fi
-
-git commit -m "1. update wave_patten results at  "$cur_date
+#!/bin/sh
 
 if [ -z "$1" ]
 then
@@ -27,25 +6,35 @@ then
 	exit 0
 fi
 
+echo "------------------ reset git repo to $1 ------------------ "
 
-if [[ "$1" == *"tcloud"* ]]
-then
-	echo "------------------ push to tlcoud ------------------ "
-	git push -f tcloud
+git pull $1
+#git fetch $1
+#git reset --hard $1/master
+
+match_result="../WavePatterns/out/match_stocks.json"
+if [ -f "$match_result" ]; then
+	cp  "$match_result" ./
+	git add match_stocks.json
 fi
 
-if [[ "$1" == *"github"* ]]
-then
-	echo "------------------- push to github ------------------ "
-	git push -f github
+tdx_stocks="../WavePatterns/out/tdx_stocks.json"
+if [ -f "$tdx_stocks" ]; then
+	cp  "$tdx_stocks" ./
+	git add tdx_stocks.json
 fi
 
-if [[ "$1" == *"gitee"* ]]
-then
-	#echo "------------------ Pull from gitee ------------------ "
-	#git reset --hard gitee/master
-	#git pull gitee master
-	echo "------------------- push to gitee ------------------ "
-	git push -f gitee
+profile_result="../WavePatterns/out/profile_indexes.json"
+if [ -f "$profile_result" ]; then
+	cp  "$profile_result" ./
+	git add profile_indexes.json
 fi
+
+cur_date="`date +%Y-%m-%d`"
+git commit -m "1. update wave_patten results at  "$cur_date
+
+#git push -f $1
+git push $1
+
+echo "------------------- push to "$1" ------------------ "
 
